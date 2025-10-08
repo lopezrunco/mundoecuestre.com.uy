@@ -1,0 +1,36 @@
+/* 
+Theme Name: Mundo Ecuestre WP Theme
+Text Domain: Mundo Ecuestre WP Theme
+Version: 1.0
+Description: Mundo Ecuestre WP Theme
+Tags: responsive, theme, wordpress
+Author: Damian Lopez Runco / Tecmedios
+Author URI: https://github.com/lopezrunco
+*/
+
+@import './Variables.scss';
+@import './general';
+@import './text';
+@import './buttons';
+@import './form';
+@import './nav';
+@import './hero';
+@import './blog';
+@import './latest-posts-by-category';
+@import './monthly-events';
+@import './call-to-action';
+@import './testimonials';
+@import './services';
+@import './staff-grid';
+@import './modal';
+@import './comments';
+@import './pagination';
+@import './bottom.scss';
+@import './footer';
+@import './quick-links';
+@import './venues';
+@import './contact-info';
+@import './skeletons';
+@import './events-posts';
+@import './page-title';
+@import './animations';

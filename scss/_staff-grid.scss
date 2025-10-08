@@ -1,0 +1,21 @@
+.staff-grid {
+    .content-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+        box-shadow: var(--box-shadow);
+
+        .icon-wrapper {
+            i {
+                font-size: 2rem;
+            }
+        }
+
+        .text-wrapper {
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
