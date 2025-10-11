@@ -1,95 +1,99 @@
 header {
-    nav {
-        border-bottom: 1px solid var(--dark-primary);
-        opacity: .9;
+  nav {
+    border-bottom: 1px solid var(--dark-primary);
+    opacity: 0.9;
 
-        .container {
-            max-width: var(--content-max-width);
+    .container {
+      max-width: var(--content-max-width);
 
-            .navbar-toggler {
-                // Bootstrap override
-                outline: none !important;
-                border: none !important;
-                box-shadow: none !important;
+      .navbar-toggler {
+        // Bootstrap override
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
 
-                .menu-icon {
-                    color: var(--light);
-                }
-            }
-
-            li.nav-item {
-                a {
-                    color: var(--white) !important;
-                    font-weight: 700;
-                    transition: var(--main-transition);
-                }
-            }
-
-            ul.dropdown-menu.show {
-                li {
-                    a.dropdown-item {
-                        color: var(--primary) !important;
-                    }
-                }
-            }
-
-            img.main-logo {
-                max-width: 200px;
-                max-height: 80px;
-            }
-
-            form.searchform {
-                padding: 1rem;
-
-                input {
-                    background-color: var(--light-primary);
-                    border-color: var(--light-primary);
-                    color: var(--light);
-                }
-            }
+        .menu-icon {
+          color: var(--light);
         }
+      }
+
+      li.nav-item {
+        cursor: pointer;
+        padding: 0.8rem 0.8rem 0.2rem !important;
+        transition: var(--main-transition);
+
+        a {
+          color: var(--white) !important;
+          font-weight: 700;
+          transition: var(--main-transition);
+        }
+
+        &.current_page_item {
+          position: relative;
+
+          a {
+            color: var(--secondary) !important;
+          }
+        }
+
+        &:hover {
+          a {
+            color: var(--yellow) !important;
+          }
+        }
+      }
+
+      ul.dropdown-menu.show {
+        li {
+          a.dropdown-item {
+            color: var(--primary) !important;
+          }
+        }
+      }
+
+      img.main-logo {
+        max-width: 200px;
+        max-height: 80px;
+      }
+
+      form.searchform {
+        padding: 1rem;
+
+        input {
+          background-color: var(--light-primary);
+          border-color: var(--light-primary);
+          color: var(--light);
+        }
+      }
     }
+  }
 }
 
+// ✅ Media query for desktop
 @media screen and (min-width: 992px) {
-    header {
-        nav {
-            .container {
-                form.searchform {
-                    padding: 0 0 0 1rem;
-                }
-            }
-        }
-    }
-}
-
-// Bootstrap styles override
-
-header {
+  header {
     nav {
-        .container {
-            li.nav-item {
-                border-bottom: 2px solid var(--dark-primary);
-                cursor: pointer;
-                padding: .8rem !important;
-                transition: var(--main-transition);
-
-                &.current_page_item {
-                    border-bottom: 2px solid var(--yellow);
-
-                    a {
-                        color: var(--yellow) !important;
-                    }
-                }
-
-                &:hover {
-                    border-bottom: 2px solid var(--yellow);
-                    
-                    a {
-                        color: var(--yellow) !important;
-                    }
-                }
-            }
+      .container {
+        form.searchform {
+          padding: 0 0 0 1rem;
         }
+
+        li.nav-item.current_page_item {
+          &::after {
+            content: "\f077";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--secondary);
+            font-size: 0.8rem;
+
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 100%;
+            margin-top: 0.2rem;
+          }
+        }
+      }
     }
+  }
 }
