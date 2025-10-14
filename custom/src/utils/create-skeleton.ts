@@ -1,10 +1,15 @@
-export function createSkeleton() {
-    const skeletonContainer = document.getElementById("skeleton");
-    const numSkeletons = 3;
+export function createSkeleton(wrapperElement: HTMLElement) {
+    const skeletonContainer = wrapperElement.querySelector(".skeleton");
+    const numSkeletons = 4;
+
+    if (!skeletonContainer) {
+      console.error("Skeleton container not found in: ", wrapperElement)
+      return
+    }
   
     const createSkeletonItem = () => {
       const skeletonCol = document.createElement("div");
-      skeletonCol.classList.add("col-lg-4");
+      skeletonCol.classList.add("col-lg-3");
   
       const skeleton = document.createElement("div");
       skeleton.classList.add("skeleton");
@@ -42,18 +47,13 @@ export function createSkeleton() {
     skeletonRow.classList.add("row");
   
     for (let i = 0; i < numSkeletons; i++) {
-      const skeletonItem = createSkeletonItem();
-      skeletonRow.appendChild(skeletonItem);
+      skeletonRow.appendChild(createSkeletonItem());
     }
   
     const skeletonContainerDiv = document.createElement("div");
     skeletonContainerDiv.classList.add("container");
     skeletonContainerDiv.appendChild(skeletonRow);
   
-    if (skeletonContainer) {
-      skeletonContainer.appendChild(skeletonContainerDiv);
-    } else {
-      console.error("No skeleton container found.");
-    }
+    skeletonContainer.appendChild(skeletonContainerDiv);
   }
   

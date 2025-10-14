@@ -3,7 +3,10 @@ import { createModal } from "./renderer.js";
 import { fetchData } from "./fetcher.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  createSkeleton()
   createModal();
-  fetchData();
+  
+  document.querySelectorAll<HTMLElement>(".post-module").forEach(wrapper => {
+    createSkeleton(wrapper)
+    fetchData(wrapper);
+  })
 });

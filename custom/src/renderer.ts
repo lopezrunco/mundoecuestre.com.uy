@@ -2,8 +2,8 @@ import { SITE_URL, ApiEndpoint } from "../config.js";
 const URL: string = `${SITE_URL}${ApiEndpoint}`;
 
 const d: Document = document;
-const rootElement: HTMLElement | null = d.getElementById("root");
-const skeletonContainer = document.getElementById("skeleton");
+// const rootElement: HTMLElement | null = d.getElementById("root");
+// const skeletonContainer = document.getElementById("skeleton");
 
 import { getBroadcastModal } from "./utils/getBroadcastModal.js";
 import { getImageUrl } from "./utils/get-image-url.js";
@@ -11,6 +11,8 @@ import { months } from "./utils/months.js";
 import { copyUrl } from "./utils/copy-url.js";
 
 export const createModal = () => {
+    if (document.getElementById("modal")) return // Prevent duplicate modal creation.
+
     const modal: HTMLDivElement = d.createElement("div");
     modal.id = "modal";
     modal.classList.add("modal");
@@ -105,7 +107,11 @@ const addModalListeners = () => {
     });
 };
 
-export const renderData = async (data: any[]) => {
+export const renderData = async (
+    data: any[],
+    rootElement: HTMLElement,
+    skeletonContainer: HTMLElement
+) => {
     // Check the existence of the neccesary HTML elements.
     if (!rootElement || !skeletonContainer) {
         console.error('Required HTML elements not found.')
