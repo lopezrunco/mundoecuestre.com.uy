@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Broadcast
+ * Template Name: Shows
  * 
  * @package Mundo Ecuestre WP Theme
  */
@@ -11,7 +11,7 @@ get_header();
 
 <section>
     <div class="container">
-        <div class="post-module" data-category-id="3" data-posts="60">
+        <div class="post-module" data-category-id="5" data-posts="60">
             <div class="root"></div>
             <div class="skeleton"></div>
         </div>

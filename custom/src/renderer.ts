@@ -2,8 +2,6 @@ import { SITE_URL, ApiEndpoint } from "../config.js";
 const URL: string = `${SITE_URL}${ApiEndpoint}`;
 
 const d: Document = document;
-// const rootElement: HTMLElement | null = d.getElementById("root");
-// const skeletonContainer = document.getElementById("skeleton");
 
 import { getBroadcastModal } from "./utils/getBroadcastModal.js";
 import { getImageUrl } from "./utils/get-image-url.js";
@@ -110,7 +108,8 @@ const addModalListeners = () => {
 export const renderData = async (
     data: any[],
     rootElement: HTMLElement,
-    skeletonContainer: HTMLElement
+    skeletonContainer: HTMLElement,
+    isShowCategory: boolean
 ) => {
     // Check the existence of the neccesary HTML elements.
     if (!rootElement || !skeletonContainer) {
@@ -163,7 +162,7 @@ export const renderData = async (
 
         const postUrl: string = post.link;
         const title: string = post.title.rendered;
-        const imageUrl: string = await getImageUrl(post);
+        let imageUrl: string = "";
         const location: string = post.acf.ubicacion;
         const type: string = post.acf.tipo_de_remate;
         const modality: string = post.acf.modalidad;
@@ -171,6 +170,9 @@ export const renderData = async (
         const financing: string = post.acf.financiacion;
         const broadcastLink: string = post.acf.enlace_transmision;
         const preofferLink: string = post.acf.enlace_a_preoferta;
+
+        // Don't fetch the post image if the post is Show type. 
+        imageUrl = !isShowCategory ? await getImageUrl(post) : ""
 
         const year: number = startDate.getFullYear();
         const month: string = months[startDate.getMonth() + 1];
@@ -188,7 +190,7 @@ export const renderData = async (
 
         const broadcastButton: string = broadcastLink
         ? `<a href="${broadcastLink}" target="_blank" class="btn btn-${broadCasting ? 'primary' : 'outline'}">
-            ${broadCasting ? "En vivo ahora" : "Enlace transmisión"} 
+            ${broadCasting ? "En vivo ahora" : (isShowCategory ? "Ver programa" : "Ver transmisión")} 
             <i class="fa-solid fa-video"></i></a>`
         : "";
 
@@ -207,13 +209,13 @@ export const renderData = async (
         singlePostWrapper.innerHTML = `
             <div class="item-wrapper">
                 <div class="image-wrapper">
-                    <img src="${imageUrl}" alt="Imagen de ${title}" />
+                    <img src="${imageUrl ? imageUrl : "/wp-content/themes/mundoecuestre/assets/images/mundo-ecuestre-show-thumb.png"}" alt="Imagen de ${title}" />
                     ${copyUrlButton}
                     <div class="metadata-wrapper">
                         <span>${day}</span>
                         <span>${month}</span>
                         <span>${year}</span>
-                        <span>${time}</span>
+                        <span>${isShowCategory ? "" : time}</span>
                     </div>
                 </div>
                 <div class="info-wrapper">

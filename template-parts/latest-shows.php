@@ -1,4 +1,4 @@
-<section>
+<section class="bg-light">
     <div class="container">
         <div class="row">
             <div class="section-title fade-in delay-level3">

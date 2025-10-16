@@ -45,6 +45,9 @@
     gap: 2rem;
 
     .item-wrapper {
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+
         .image-wrapper {
             height: auto;
             position: relative;
