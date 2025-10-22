@@ -1,17 +1,33 @@
-<?php 
-// get_template_part('template-parts/bottom'); 
-get_template_part('template-parts/quick-links'); 
+<?php
+require_once get_template_directory() . '/functions.php';
+if (file_exists(SOCIAL_DATA_PATH)) {
+    $json_data = file_get_contents(SOCIAL_DATA_PATH);
+    $social_data = json_decode($json_data, true);
+}
+
+get_template_part('template-parts/quick-links');
 ?>
 
-<footer class="footer text-center py-3 theme-bg-dark">
-    <small>
-        <?php echo get_bloginfo('name'); ?> © <?php echo date("Y"); ?> | Todos los derechos reservados | Desarrollado por <a href="https://tecmedios.com/" target="_blank">Tecmedios</a>
-    </small>
-    <?php 
-        $visit_count = get_option('site_visit_count', 0); 
-        echo '<small> | Visitas: ' . number_format($visit_count) . '</small>'
-    ?>
-    <?php dynamic_sidebar('footer-1'); ?>
+<footer class="footer py-3 theme-bg-dark">
+    <div class="container">
+        <div class="d-flex align-items-center gap-3">
+            <div class="social">
+                <?php foreach ($social_data as $item) : ?>
+                    <a href="<?= $item['link']; ?>" target="_blank" title="<?= $item['title']; ?>">
+                        <i class="<?= $item['icon']; ?> me-3"></i>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <small>
+                <?php echo get_bloginfo('name'); ?> © <?php echo date("Y"); ?>
+            </small>
+            <?php
+            $visit_count = get_option('site_visit_count', 0);
+            echo '<small>Visitas: ' . number_format($visit_count) . '</small>'
+            ?>
+        </div>
+        <?php dynamic_sidebar('footer-1'); ?>
+    </div>
 </footer>
 </div>
 

@@ -1,3 +1,11 @@
+<?php
+require_once get_template_directory() . '/functions.php';
+if (file_exists(SOCIAL_DATA_PATH)) {
+    $json_data = file_get_contents(SOCIAL_DATA_PATH);
+    $social_data = json_decode($json_data, true);
+}
+?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -38,6 +46,15 @@
                         'fallback_cb' => false
                     ));
                     ?>
+                    <div class="social">
+                        <div class="d-flex gap-4">
+                            <?php foreach ($social_data as $item) : ?>
+                                <a href="<?= $item['link']; ?>" target="_blank" title="<?= $item['title']; ?>">
+                                    <i class="<?= $item['icon']; ?>"></i>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
