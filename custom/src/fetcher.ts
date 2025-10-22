@@ -1,7 +1,6 @@
 import { SITE_URL, ApiEndpoint } from "../config.js";
 
 const URL: string = `${SITE_URL}${ApiEndpoint}`;
-let currentPage: number = 1
 
 import { renderData } from "./renderer.js";
 import { Post } from "./interfaces/post.js";
@@ -17,20 +16,44 @@ export const fetchData = async (wrapperElement: HTMLElement) => {
 
   if (dataCategoryAttr == "5") { isShowCategory = true }
 
-  const postsToFetch: number = dataPostsAttr ? parseInt(dataPostsAttr, 10) : 30;
+  const postsToShow: number | null = dataPostsAttr ? parseInt(dataPostsAttr, 10) : null;
   const categoryIdToFetch: number = dataCategoryAttr ? parseInt(dataCategoryAttr, 10) : 1;
 
-  const finalUrl: string = `${URL}?categories=${categoryIdToFetch}&per_page=${postsToFetch}&page${currentPage}`;
+  const perPage = 100
+  let page = 1
+  let allPosts: Post[] = []
+  let hasMore = true
 
   try {
-    const response = await fetch(finalUrl)
+    // Fetch all pages of posts.
+    while (hasMore) {
+      const url: string = `${URL}?categories=${categoryIdToFetch}&per_page=${perPage}&page${page}`
+      const response = await fetch(url)
 
-    if (!response.ok) throw new Error(`Error fetching the url ${finalUrl}`);
-    
-    const data: Post[] = await response.json()
+      if (!response.ok) throw new Error(`Error fetching the url ${url}`)
+
+      const data: Post[] = await response.json()
+      allPosts = allPosts.concat(data)
+
+      const totalPages = parseInt(response.headers.get('X-WP-TotalPages') || '1')
+      page++
+      hasMore = page <= totalPages
+    }
+
+    // Sort posts by "inicio_de_la_transmision" custom field.
+    const sortedPosts = allPosts.sort((a, b) => {
+      const dateA = new Date(a.acf.inicio_de_la_transmision).getTime()
+      const dateB = new Date(b.acf.inicio_de_la_transmision).getTime()
+      return dateB - dateA // Newest first.
+    })
+
+    // If postsToShow is not defined in the .php file, only keep the first N posts.
+    const limitedPosts = postsToShow !== null 
+      ? sortedPosts.slice(0, postsToShow) 
+      : sortedPosts
 
     if (rootElement && skeletonContainer) {
-      renderData(data, rootElement, skeletonContainer, isShowCategory)
+      renderData(limitedPosts, rootElement, skeletonContainer, isShowCategory)
     } else {
       console.error("Root or skeleton element missing in: ", wrapperElement)
     }

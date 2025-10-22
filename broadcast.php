@@ -11,7 +11,7 @@ get_header();
 
 <section>
     <div class="container">
-        <div class="post-module" data-category-id="3" data-posts="60">
+        <div class="post-module" data-category-id="3">
             <div class="root"></div>
             <div class="skeleton"></div>
         </div>
