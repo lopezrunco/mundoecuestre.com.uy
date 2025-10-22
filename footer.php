@@ -7,6 +7,10 @@ get_template_part('template-parts/quick-links');
     <small>
         <?php echo get_bloginfo('name'); ?> © <?php echo date("Y"); ?> | Todos los derechos reservados | Desarrollado por <a href="https://tecmedios.com/" target="_blank">Tecmedios</a>
     </small>
+    <?php 
+        $visit_count = get_option('site_visit_count', 0); 
+        echo '<small> | Visitas: ' . number_format($visit_count) . '</small>'
+    ?>
     <?php dynamic_sidebar('footer-1'); ?>
 </footer>
 </div>

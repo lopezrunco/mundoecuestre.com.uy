@@ -155,3 +155,10 @@ function subcategories_shortcode($atts)
 }
 
 add_shortcode('subcategories', 'subcategories_shortcode');
+
+function update_site_visit_count() {
+    $count = get_option('site_visit_count', 0);
+    $count++;
+    update_option('site_visit_count', $count);
+}
+add_action('wp_head', 'update_site_visit_count');
