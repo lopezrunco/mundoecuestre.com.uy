@@ -106,151 +106,172 @@ const addModalListeners = () => {
 };
 
 export const renderData = async (
-    data: any[],
-    rootElement: HTMLElement,
-    skeletonContainer: HTMLElement,
-    isShowCategory: boolean
+  data: any[],
+  rootElement: HTMLElement,
+  skeletonContainer: HTMLElement,
+  isShowCategory: boolean
 ) => {
-    // Check the existence of the neccesary HTML elements.
-    if (!rootElement || !skeletonContainer) {
-        console.error('Required HTML elements not found.')
-        if (!rootElement) console.error('Root element not found.')
-        if (!skeletonContainer) console.error('Skeleton container element not found.')
-        return
-    }
+  // Validation of root element and posts data.
+  if (!rootElement || !skeletonContainer) {
+    console.error('Required HTML elements not found.')
+    return
+  }
 
-    if (data.length <= 0) {
-        skeletonContainer.innerHTML = '';
-        rootElement.innerHTML = '<div class="no-events-msj"><p>En este momento, no hay contenido cargado.<br/>Por favor, intente nuevamente más tarde.<div>'
-        return
-    }
+  if (data.length <= 0) {
+    skeletonContainer.innerHTML = ''
+    rootElement.innerHTML = '<div class="no-events-msj"><p>En este momento, no hay contenido cargado.<br/>Por favor, intente nuevamente más tarde.<div>'
+    return
+  }
 
-    // Filter out posts already finished.
-    // const posts = data.filter(post => new Date(post.acf.fin_de_la_transmision) > new Date())
-    const posts = data
+  // Prepare and sort the posts.
+  const posts = data.sort((a, b) => {
+    const dateA = new Date(a.acf.inicio_de_la_transmision).getTime()
+    const dateB = new Date(b.acf.inicio_de_la_transmision).getTime()
+    return dateB - dateA
+  })
 
-    // Sort the posts by start date.
-    posts.sort((postA, postB) => {
-        const dateA = new Date(postA.acf.inicio_de_la_transmision);
-        const dateB = new Date(postB.acf.inicio_de_la_transmision);
+  const d = document
+  const broadcastingWrapper = d.createElement('div')
+  broadcastingWrapper.classList.add('broadcasting-wrapper')
 
-        // return dateA.getTime() - dateB.getTime();
-        return dateB.getTime() - dateA.getTime();
-    })
+  // Clean skeleton.
+  rootElement.innerHTML = ''
+  skeletonContainer.innerHTML = ''
 
-    let postsWrapper = d.createElement("div");
-    postsWrapper.classList.add("posts-wrapper");
+  // Generate unique carousel ID for the current instance.
+  const carouselId = `carousel-${Math.random().toString(36).substr(2, 9)}`
 
-    const broadcastingWrapper = d.createElement("div");
-    broadcastingWrapper.classList.add("broadcasting-wrapper");
+  // Carousel containers.
+  const carousel = d.createElement('div')
+  carousel.id = carouselId
+  carousel.classList.add('carousel', 'slide', 'd-md-none') // Only in mobile.
 
-    // Clean the skeleton.
-    rootElement.innerHTML = ''
+  const inner = d.createElement('div')
+  inner.classList.add('carousel-inner')
 
-    for (const post of posts) {
-        const currentDate = new Date();
-        const startDate = new Date(post.acf.inicio_de_la_transmision);
-        const endDate = new Date(post.acf.fin_de_la_transmision);
+  // Desktop wrapper.
+  const postsWrapper = d.createElement('div')
+  postsWrapper.classList.add('posts-wrapper')
 
-        // Deduce if the event is live right now:
-        // First condition returns FALSE when the event has NOT started.
-        // First condition returns TRUE when the event started.
-        // Second condition returns TRUE when the event has NOT finished.
-        // Second condition returns FALSE when the event has finished, converting
-        // the all the condition to FALSE.
-        const broadCasting = startDate < currentDate && currentDate < endDate;
+  // Iterate the data and generate the posts.
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i]
+    const currentDate = new Date()
+    const startDate = new Date(post.acf.inicio_de_la_transmision)
+    const endDate = new Date(post.acf.fin_de_la_transmision)
+    const broadCasting = startDate < currentDate && currentDate < endDate
 
-        const postUrl: string = post.link;
-        const title: string = post.title.rendered;
-        let imageUrl: string = "";
-        const location: string = post.acf.ubicacion;
-        const type: string = post.acf.tipo_de_remate;
-        const modality: string = post.acf.modalidad;
-        const breeder: string = post.acf.cabana;
-        const financing: string = post.acf.financiacion;
-        const broadcastLink: string = post.acf.enlace_transmision;
-        const preofferLink: string = post.acf.enlace_a_preoferta;
+    const postUrl = post.link
+    const title = post.title.rendered
+    const location = post.acf.ubicacion
+    const type = post.acf.tipo_de_remate
+    const modality = post.acf.modalidad
+    const breeder = post.acf.cabana
+    const financing = post.acf.financiacion
+    const broadcastLink = post.acf.enlace_transmision
+    const preofferLink = post.acf.enlace_a_preoferta
 
-        // Don't fetch the post image if the post is Show type. 
-        imageUrl = !isShowCategory ? await getImageUrl(post) : ""
+    const imageUrl = !isShowCategory
+      ? await getImageUrl(post)
+      : "/wp-content/themes/mundoecuestre/assets/images/mundo-ecuestre-show-thumb.png"
 
-        const year: number = startDate.getFullYear();
-        const month: string = months[startDate.getMonth() + 1];
-        const day: number = startDate.getDate();
-        const time: string = startDate.toLocaleTimeString('es-UY', { hour: '2-digit', minute: '2-digit', hour12: false })
+    const year = startDate.getFullYear()
+    const month = months[startDate.getMonth() + 1]
+    const day = startDate.getDate()
+    const time = startDate.toLocaleTimeString("es-UY", { hour: "2-digit", minute: "2-digit", hour12: false })
 
-        const singlePostWrapper = d.createElement("div");
-        singlePostWrapper.classList.add("single-post-wrapper");
+    const detailsButton = post.content.rendered
+      ? `<a href="#" class="btn btn-outline details-button" data-post-id="${post.id}">
+            Ver detalles <i class="fa-solid fa-chevron-right"></i>
+        </a>`
+      : ""
 
-        const detailsButton: string = post.content.rendered
-        ? `<a href="#" class="btn btn-outline details-button" data-post-id="${post.id}">
-                Ver detalles <i class="fa-solid fa-chevron-right"></i>
-            </a>`
-        : "";
+    const broadcastButton = broadcastLink
+      ? `<a href="${broadcastLink}" target="_blank" class="btn btn-${ broadCasting ? "primary" : "outline" }">${ broadCasting ? "En vivo ahora" : isShowCategory ? "Ver programa" : "Ver transmisión"}<i class="fa-solid fa-video"></i></a>` 
+      : ""
 
-        const broadcastButton: string = broadcastLink
-        ? `<a href="${broadcastLink}" target="_blank" class="btn btn-${broadCasting ? 'primary' : 'outline'}">
-            ${broadCasting ? "En vivo ahora" : (isShowCategory ? "Ver programa" : "Ver transmisión")} 
-            <i class="fa-solid fa-video"></i></a>`
-        : "";
+    const preofferButton = preofferLink
+      ? `<a href="${preofferLink}" target="_blank" class="btn btn-outline">
+            Preofertar <i class="fa-solid fa-gavel"></i>
+        </a>`
+      : ""
 
-        const preofferButton: string = preofferLink
-        ? `<a href="${preofferLink}" target="_blank" class="btn btn-outline">
-                Preofertar <i class="fa-solid fa-gavel"></i>
-            </a>`
-        : "";
+    const copyUrlButton = postUrl
+      ? `<button class="copy-url-button" data-url="${postUrl}">
+            <i class="fa-regular fa-copy"></i>
+        </button>`
+      : ""
 
-        const copyUrlButton: string = postUrl
-        ? `<button class="copy-url-button" data-url="${postUrl}">
-                <i class="fa-regular fa-copy"></i>
-            </button>`
-        : "";
+    // HTML card.
+    const postHTML = `
+      <div class="item-wrapper">
+        <div class="image-wrapper">
+          <img src="${imageUrl}" alt="Imagen de ${title}" class="d-block w-100"/>
+          ${copyUrlButton}
+          <div class="metadata-wrapper">
+            <span>${day}</span>
+            <span>${month}</span>
+            <span>${year}</span>
+            <span>${isShowCategory ? "" : time}</span>
+          </div>
+        </div>
+        <div class="info-wrapper">
+          <h3>${title}</h3>
+          <p>
+            ${location ? `<b>Ubicación:</b> ${location}<br>` : ""}
+            ${type ? `<b>Tipo de remate:</b> ${type}<br>` : ""}
+            ${modality ? `<b>Modalidad:</b> ${modality}<br>` : ""}
+            ${breeder ? `<b>Cabaña:</b> ${breeder}<br>` : ""}
+            ${financing ? `<b>Financiación:</b> ${financing}` : ""}
+          </p>
+          ${detailsButton}
+          ${broadcastButton}
+          ${preofferButton}
+        </div>
+      </div>
+    `
 
-        singlePostWrapper.innerHTML = `
-            <div class="item-wrapper">
-                <div class="image-wrapper">
-                    <img src="${imageUrl ? imageUrl : "/wp-content/themes/mundoecuestre/assets/images/mundo-ecuestre-show-thumb.png"}" alt="Imagen de ${title}" />
-                    ${copyUrlButton}
-                    <div class="metadata-wrapper">
-                        <span>${day}</span>
-                        <span>${month}</span>
-                        <span>${year}</span>
-                        <span>${isShowCategory ? "" : time}</span>
-                    </div>
-                </div>
-                <div class="info-wrapper">
-                    <h3>${title}</h3>
-                    <p>
-                        ${location ? `<b>Ubicación: </b> ${location} <br>` : ''}
-                        ${type ? `<b>Tipo de remate: </b> ${type} <br>` : ''}
-                        ${modality ? `<b>Modalidad: </b> ${modality} <br>` : ''}
-                        ${breeder ? `<b>Cabaña: </b> ${breeder} <br>` : ''}
-                        ${financing ? `<b>Financiación: </b> ${financing}` : ''}
-                    </p>
-                    ${detailsButton}
-                    ${broadcastButton}
-                    ${preofferButton}
-                </div>
-            </div>`;
+    // Desktop card.
+    const singlePostWrapper = d.createElement("div")
+    singlePostWrapper.classList.add("single-post-wrapper")
+    singlePostWrapper.innerHTML = postHTML
+    postsWrapper.appendChild(singlePostWrapper)
 
-        postsWrapper.appendChild(singlePostWrapper);
+    // Mobile carousel item.
+    const item = d.createElement("div")
+    item.classList.add("carousel-item")
+    if (i === 0) item.classList.add("active")
+    item.innerHTML = postHTML
+    inner.appendChild(item)
 
-        if (broadCasting && broadcastLink) {
-            broadcastingWrapper.innerHTML = `${getBroadcastModal(broadcastLink, title)}`
-        }
-    }
-    if (rootElement) {
-        rootElement.appendChild(broadcastingWrapper)
-        rootElement.appendChild(postsWrapper);
-    }
-    skeletonContainer.innerHTML = '';
+    if (broadCasting && broadcastLink) broadcastingWrapper.innerHTML = getBroadcastModal(broadcastLink, title)
 
-    addModalListeners();
+    // Carousel controls.
+    const prevBtn = `
+      <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>`
+    const nextBtn = `
+      <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>`
 
-    d.querySelectorAll('.copy-url-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const url = button.getAttribute('data-url');
-            if (url) { copyUrl(url) }
-        })
-    })
-};
+    carousel.appendChild(inner)
+    carousel.insertAdjacentHTML("beforeend", prevBtn + nextBtn)
+
+    // Append both desktop and mobile versions.
+    rootElement.appendChild(broadcastingWrapper)
+    rootElement.appendChild(postsWrapper)
+    rootElement.appendChild(carousel)
+
+    // Modal + copy URL setup
+    addModalListeners()
+    d.querySelectorAll(".copy-url-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const url = button.getAttribute("data-url")
+        if (url) copyUrl(url)
+      })
+  })
+}}
