@@ -156,9 +156,34 @@ function subcategories_shortcode($atts)
 
 add_shortcode('subcategories', 'subcategories_shortcode');
 
-function update_site_visit_count() {
-    $count = get_option('site_visit_count', 0);
-    $count++;
-    update_option('site_visit_count', $count);
+add_action('init', 'vc_track_visits');
+
+function vc_track_visits() {
+    // Get the saved count of total visits from the Options table (A Wordpress database table that stores general site-wide settings and configuration data).
+    // vc_total_visits is the option name. 0 is the default value if the option does not exist.
+    $total_visits = get_option('vc_total_visits', 0);
+    
+    // Check if the PHP session has not been started. If not, start one.
+    if (!isset($_SESSION)) session_start();
+
+    // Check wether the current visitor has already been counted in their current session.
+    if (!isset($_SESSION['vc_visited'])) {
+        // Set a flag in the visitor's session to indicate that they've been counted.
+        $_SESSION['vc_visited'] = true;
+
+        $total_visits++;
+        
+        // Save the new total visits count back in the Wordpress database (in the wp_options table).
+        update_option('vc_total_visits', $total_visits);
+    }
 }
-add_action('wp_head', 'update_site_visit_count');
+
+function vc_get_total_visits() {
+    return get_option('vc_total_visits', 0);
+}
+
+function vc_shortcode_display() {
+    return '<small>Visitas: ' . number_format(vc_get_total_visits()) . '</small>';
+}
+
+add_shortcode('visitor_counter', 'vc_shortcode_display');
