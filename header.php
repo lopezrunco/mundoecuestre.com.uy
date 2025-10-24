@@ -16,7 +16,7 @@ if (file_exists(SOCIAL_DATA_PATH)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mundo Ecuestre WP Theme">
     <meta name="author" content="Damian Lopez runco">
-    <link rel="shortcut icon" href="wp-content/themes/mundoecuestre/assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png" type="image/x-icon">
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CDN -->
