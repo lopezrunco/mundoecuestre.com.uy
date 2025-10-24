@@ -248,15 +248,15 @@ export const renderData = async (
 
     // Carousel controls.
     const prevBtn = `
-      <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>`
+      <a class="carousel-control-prev" role="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+        <i class="fa-solid fa-chevron-left position-arrow"></i>
+      </a>
+    `
     const nextBtn = `
-      <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>`
+      <a class="carousel-control-next" role="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+        <i class="fa-solid fa-chevron-right position-arrow"></i>
+      </a>
+    `
 
     carousel.appendChild(inner)
     carousel.insertAdjacentHTML("beforeend", prevBtn + nextBtn)
