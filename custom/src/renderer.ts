@@ -196,18 +196,17 @@ export const renderData = async (
         </a>`
       : ""
 
-    const copyUrlButton = postUrl
-      ? `<button class="copy-url-button" data-url="${postUrl}">
-            <i class="fa-regular fa-copy"></i>
-        </button>`
-      : ""
+    // const copyUrlButton = postUrl
+    //   ? `<button class="copy-url-button" data-url="${postUrl}">
+    //         <i class="fa-regular fa-copy"></i>
+    //     </button>`
+    //   : ""
 
     // HTML card.
     const postHTML = `
       <div class="item-wrapper">
         <div class="image-wrapper">
           <img src="${imageUrl}" alt="Imagen de ${title}" class="d-block w-100"/>
-          ${copyUrlButton}
           <div class="metadata-wrapper">
             <span>${day}</span>
             <span>${month}</span>

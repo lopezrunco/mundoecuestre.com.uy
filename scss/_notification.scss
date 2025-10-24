@@ -1,0 +1,24 @@
+#custom-notification {
+    &.show {
+        z-index: 9999;
+        position: fixed;
+        left: 0.5rem;
+        bottom: 2.5rem;
+        padding: .6rem 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        border-radius: var(--border-radius);
+        color: var(--white);
+        font-size: 14px;
+        opacity: .9;
+    }
+    
+    &.success {
+        background: var(--success);
+    }
+
+    &.error {
+        background: var(--danger);
+    }
+}
