@@ -47,7 +47,7 @@ if (file_exists(SOCIAL_DATA_PATH)) {
                     ));
                     ?>
                     <div class="social">
-                        <div class="d-flex gap-4">
+                        <div class="d-flex gap-3">
                             <?php foreach ($social_data as $item) : ?>
                                 <a href="<?= $item['link']; ?>" target="_blank" title="<?= $item['title']; ?>">
                                     <i class="<?= $item['icon']; ?>"></i>

@@ -88,6 +88,9 @@
                 border-top-left-radius: var(--border-radius);
                 border-top-right-radius: var(--border-radius);
                 opacity: 1;
+                max-height: 300px;
+                object-fit: cover;
+                object-position: top;
                 transition: var(--main-transition);
 
                 &:hover {
@@ -98,7 +101,7 @@
             .metadata-wrapper {
                 position: absolute;
                 top: 10px;
-                right: 10px;
+                left: 10px;
                 z-index: 30;
                 border-radius: var(--border-radius);
                 display: flex;
@@ -158,6 +161,15 @@
     .posts-wrapper {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        
+        .item-wrapper {
+            .image-wrapper {
+                img {
+                    max-height: none;
+                    object-fit: initial;
+                }
+            }
+        }
     }
 }
 

@@ -14,7 +14,7 @@ get_template_part('template-parts/quick-links');
             <div class="social">
                 <?php foreach ($social_data as $item) : ?>
                     <a href="<?= $item['link']; ?>" target="_blank" title="<?= $item['title']; ?>">
-                        <i class="<?= $item['icon']; ?> me-3"></i>
+                        <i class="<?= $item['icon']; ?> me-2"></i>
                     </a>
                 <?php endforeach; ?>
             </div>

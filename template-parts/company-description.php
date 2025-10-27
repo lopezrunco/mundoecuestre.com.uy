@@ -12,7 +12,8 @@ if (file_exists(COMPANY_DATA_PATH)) {
             <div class="col-12 col-lg-5">
                 <img width="100%" class="box-shadow" src="<?php echo get_template_directory_uri(); ?>/assets/images/nosotros.png" alt="<?= $company_data['companyName']; ?>" />
                 <div class="quote">
-                    <i class="fa-solid fa-quote-left quotes-icon"></i>
+                    <!-- <i class="fa-solid fa-quote-left quotes-icon"></i> -->
+                    <i class="fa-solid fa-tv quotes-icon"></i>
                     <h5>
                         <?php echo esc_html($company_data['slogan']); ?>
                     </h5>

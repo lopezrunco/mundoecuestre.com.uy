@@ -5,7 +5,7 @@
         </h1>
         <div class="breadcrumbs fade-in delay-level2">
             <i class="fa-solid fa-location-dot"></i>
-            <a href="<?= esc_url(home_url('/')); ?>">Inicio</a> / <?= $breadcrumb; ?>
+            <a href="<?= esc_url(home_url('/')); ?>">Inicio</a> <i class="fa-solid fa-chevron-right"></i> <?= $breadcrumb; ?>
         </div>
     </div>
 </div>

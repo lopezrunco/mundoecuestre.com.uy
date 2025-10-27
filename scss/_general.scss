@@ -23,7 +23,7 @@ body {
 }
 
 section {
-    padding: 4rem 0;
+    padding: 2rem 0;
 }
 
 @media screen and (min-width: 992px) {
@@ -241,10 +241,10 @@ small {
 }
 
 .separator {
-    width: 100px;
-    height: 5px;
-    background-color: var(--light-primary);
-    margin: 2rem auto;
+    width: 180px;
+    height: 2px;
+    background-color: var(--secondary);
+    margin: 1rem auto;
 }
 
 .quote {
@@ -265,12 +265,12 @@ small {
     box-shadow: var(--box-shadow);
 
     .quotes-icon {
-        font-size: 10rem;
+        font-size: 6rem;
         color: var(--white);
         opacity: .1;
         position: absolute;
-        top: -3rem;
-        left: -1rem;
+        top: -1rem;
+        left: -2rem;
         z-index: -1;
     }
 

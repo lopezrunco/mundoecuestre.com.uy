@@ -73,6 +73,18 @@ header {
   }
 }
 
+@media screen and (max-width: 991px) {
+  header {
+    nav {
+      .container {
+        img.main-logo {
+          max-height: 50px;
+        }
+      }
+    }
+  }
+}
+
 // ✅ Media query for desktop
 @media screen and (min-width: 992px) {
   header {
