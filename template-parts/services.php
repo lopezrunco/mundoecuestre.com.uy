@@ -10,7 +10,13 @@ if (file_exists(SERVICES_DATA_PATH)) {
     <article class="container">
         <div class="row">
             <?php foreach ($services_data as $service) : ?>
-                <div class="col-lg-4 mb-5">
+                <?php 
+                    $col_classes = 'col-lg-4 mb-5';
+                    if ($service['style'] === 'img') {
+                        $col_classes .= 'col-lg-4 mb-5 d-none d-lg-flex';
+                    }
+                ?>
+                <div class="<?= $col_classes; ?>">
                     <?php if ($service['style'] === 'info') : ?>
                         <div class="content-wrapper thick-border-light p-5">
                             <!-- <i class="<?= $service['icon']; ?> icon"></i> -->
