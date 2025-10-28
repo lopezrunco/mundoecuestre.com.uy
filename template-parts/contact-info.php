@@ -1,5 +1,9 @@
 <?php
 require_once get_template_directory() . '/functions.php';
+if (file_exists(COMPANY_DATA_PATH)) {
+    $json_data = file_get_contents(COMPANY_DATA_PATH);
+    $company_data = json_decode($json_data, true);
+}
 if (file_exists(OFFICES_DATA_PATH)) {
     $json_data = file_get_contents(OFFICES_DATA_PATH);
     $offices_data = json_decode($json_data, true);
@@ -12,12 +16,15 @@ if (file_exists(OFFICES_DATA_PATH)) {
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
-                        <h2><?= $office['state']; ?></h2>
+                        <h2>Comunidad Mundo Ecuestre</h2>
                         <div class="separator"></div>
+                        <?php foreach($company_data['join-us'] as $pharagraph) { ?>
+                            <p><?php echo $pharagraph; ?></p>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php foreach ($office['data'] as $data_item) : ?>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="content-wrapper">
                             <i class="<?= $data_item['icon']; ?>"></i>
                             <p class="description"><?= $data_item['title']; ?></p>
@@ -33,10 +40,6 @@ if (file_exists(OFFICES_DATA_PATH)) {
                         </div>
                     </div>
                 <?php endforeach; ?>
-
-                <!-- <div class="col-12">
-                    <iframe src="<?= $office['iframeMap']; ?>" width="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div> -->
             </div>
         </article>
     </section>
