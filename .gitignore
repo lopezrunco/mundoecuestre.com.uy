@@ -1,6 +1,10 @@
 todo.md
 
-/assets
+/assets/css
+/assets/fonts
+/assets/images
+/assets/videos
+
 /data
 
 /custom/dist
