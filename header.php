@@ -10,6 +10,10 @@ if (file_exists(SOCIAL_DATA_PATH)) {
 <html <?php language_attributes(); ?>>
 
 <head>
+    <!-- Google Tag Manager -->
+    <?php include get_template_directory() . '/config/gtm-head.php'; ?>
+    <!-- Google Tag Manager -->
+
     <!-- Meta -->
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +30,10 @@ if (file_exists(SOCIAL_DATA_PATH)) {
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <?php include get_template_directory() . '/config/gtm-body.php'; ?>
+    <!-- Google Tag Manager (noscript) -->
+
     <header class="fixed-top">
         <nav class="navbar navbar-expand-xl bg-dark py-lg-0">
             <div class="container fade-in delay-level1">

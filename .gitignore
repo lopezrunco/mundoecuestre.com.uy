@@ -1,11 +1,10 @@
-todo.md
+/config
+/data
 
 /assets/css
 /assets/fonts
 /assets/images
 /assets/videos
-
-/data
 
 /custom/dist
 /custom/node_modules
