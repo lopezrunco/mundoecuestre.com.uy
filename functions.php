@@ -5,9 +5,11 @@ define('STAFF_DATA_PATH', get_template_directory() . '/data/staff.json');
 define('COMPANY_DATA_PATH', get_template_directory() . '/data/company.json');
 define('OFFICES_DATA_PATH', get_template_directory() . '/data/offices.json');
 define('VENUES_DATA_PATH', get_template_directory() . '/data/venues.json');
+define('SPONSORS_DATA_PATH', get_template_directory() . '/data/sponsors.json');
 define('SERVICES_DATA_PATH', get_template_directory() . '/data/services.json');
 define('SOCIAL_DATA_PATH', get_template_directory() . '/data/social.json');
 define('TESTIMONIALS_DATA_PATH', get_template_directory() . '/data/testimonials.json');
+define('NO_IMAGE_PLACEHOLDER', get_template_directory_uri() . '/assets/images/no-image-default.jpg');
 
 function starterwptheme_theme_support()
 {

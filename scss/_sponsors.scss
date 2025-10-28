@@ -1,0 +1,29 @@
+.sponsors-slider {
+    .sponsors-carousel-wrapper {
+        .sponsors-inner {
+            gap: 15px;
+            transition: transform 0.5s ease; 
+
+            .sponsor-item {
+                flex: 0 0 calc(100% / 8 - 13px); 
+                max-width: calc(100% / 8 - 13px);
+            }
+        }
+        
+        .controls {
+            display: flex;
+            position: relative;
+            bottom: -2rem;
+            justify-content: center;
+
+            button {
+                position: relative;
+
+                i.position-arrow {
+                    background: transparent;
+                    color: var(--dark);
+                }
+            }
+        }
+    }
+}
