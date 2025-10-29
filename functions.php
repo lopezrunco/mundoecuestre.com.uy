@@ -4,6 +4,7 @@
 define('STAFF_DATA_PATH', get_template_directory() . '/data/staff.json');
 define('COMPANY_DATA_PATH', get_template_directory() . '/data/company.json');
 define('OFFICES_DATA_PATH', get_template_directory() . '/data/offices.json');
+define('SCHEDULE_DATA_PATH', get_template_directory() . '/data/schedule.json');
 define('VENUES_DATA_PATH', get_template_directory() . '/data/venues.json');
 define('SPONSORS_DATA_PATH', get_template_directory() . '/data/sponsors.json');
 define('SERVICES_DATA_PATH', get_template_directory() . '/data/services.json');

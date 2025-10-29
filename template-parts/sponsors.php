@@ -15,7 +15,7 @@ $no_image_placeholder = NO_IMAGE_PLACEHOLDER;
 
 <?php if (!empty($items)) : ?>
     <!-- Desktop Version -->
-    <section class="sponsors-slider d-none d-lg-block">
+    <section class="sponsors-slider d-none d-lg-block bg-light">
         <article class="container fade-in delay-level2 px-0">
             <div class="row">
                 <div class="section-title">
@@ -61,7 +61,7 @@ $no_image_placeholder = NO_IMAGE_PLACEHOLDER;
     </section>
 
     <!-- Mobile Version -->
-    <section class="sponsors-slider d-block d-lg-none">
+    <section class="sponsors-slider d-block d-lg-none bg-light">
         <article class="container">
             <div class="row">
                 <div class="section-title mb-0">

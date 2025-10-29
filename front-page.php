@@ -3,6 +3,7 @@ get_header();
 get_template_part('template-parts/hero');
 get_template_part('template-parts/upcoming-events');
 get_template_part('template-parts/latest-shows');
+get_template_part('template-parts/schedule');
 get_template_part('template-parts/sponsors');
 
 // Start Call to action section variables and template part

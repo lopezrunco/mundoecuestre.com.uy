@@ -57,6 +57,25 @@ small {
     outline: none !important;
 }
 
+.table-primary {
+    --bs-table-bg: var(--secondary) !important;
+}
+
+.table thead th {
+    vertical-align: middle !important;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    font-size: 14px !important;
+}
+
+@media screen and (min-width: 768px) {
+    tbody, td, tfoot, th, thead, tr {
+        font-size: 16px !important;
+    }
+}
+
+
 .main-wrapper {
     background: var(--white);
 
