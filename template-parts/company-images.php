@@ -6,7 +6,7 @@ if (file_exists(COMPANY_DATA_PATH)) {
 }
 ?>
 
-<section class="company-images">
+<section class="company-images bg-light">
     <article class="container">
         <div class="component-wrapper">
             <?php foreach($company_data['company-images'] as $image) { ?>
