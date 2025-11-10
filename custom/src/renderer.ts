@@ -158,10 +158,20 @@ export const renderData = async (
     const post = posts[i]
     const currentDate = new Date()
     const startDate = new Date(post.acf.inicio_de_la_transmision)
-    const endDate = new Date(post.acf.fin_de_la_transmision)
-    const broadCasting = startDate < currentDate && currentDate < endDate
+    const broadcastDay = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate()
+    )
 
-    const postUrl = post.link
+    const showFrom = new Date(broadcastDay)
+    showFrom.setHours(1, 0, 0, 0) // 1 AM
+
+    const showUntil = new Date(broadcastDay)
+    showUntil.setHours(23, 0, 0, 0) // 11 PM
+
+    const broadCasting = currentDate >= showFrom && currentDate <= showUntil
+
     const title = post.title.rendered
     const location = post.acf.ubicacion
     const type = post.acf.tipo_de_remate
@@ -243,7 +253,7 @@ export const renderData = async (
     item.innerHTML = postHTML
     inner.appendChild(item)
 
-    if (broadCasting && broadcastLink) broadcastingWrapper.innerHTML = getBroadcastModal(broadcastLink, title)
+    if (broadCasting && broadcastLink) broadcastingWrapper.insertAdjacentHTML("beforeend", getBroadcastModal(broadcastLink, title))
 
     // Carousel controls.
     const prevBtn = `

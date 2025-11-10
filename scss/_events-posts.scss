@@ -1,8 +1,11 @@
 .broadcasting-wrapper {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     text-align: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
 
     .broadcasting-section {
         display: flex;
@@ -11,7 +14,8 @@
         align-items: center;
         gap: 1rem;
         padding: 0 0 3rem;
-        width: 97%;
+        flex: 1 1 calc(50% - 1rem); /* 2 columns. */
+        max-width: calc(50% - 1rem); /* Ensures proper sizing. */
 
         .title {
             display: flex;
@@ -30,6 +34,16 @@
             width: 100%;
             max-width: 800px;
             height: 420px;
+        }
+    }
+
+    @media screen and (max-width: 576px) {
+        flex-direction: column;
+
+        .broadcasting-section {
+            flex: 1 1 100%;
+            max-width: 100%;
+            width: 100%;
         }
     }
 }
