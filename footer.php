@@ -22,6 +22,9 @@ get_template_part('template-parts/quick-links');
                 <?php echo get_bloginfo('name'); ?> © <?php echo date("Y"); ?>
             </small>
             <?php echo do_shortcode('[visitor_counter]'); ?>
+            <small class="d-none d-sm-block">
+                Desarrollo: <a href="https://tecmedios.com/" target="_blank" rel="noreferrer">Tecmedios</a>
+            </small>
         </div>
         <?php dynamic_sidebar('footer-1'); ?>
     </div>
