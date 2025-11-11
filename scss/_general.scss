@@ -149,6 +149,10 @@ tbody, td, tfoot, th, thead, tr {
     font-size: 2rem;
 }
 
+.border {
+    border: 1px solid var(--border-color);
+}
+
 .border-radius {
     border-radius: var(--border-radius);
 }
