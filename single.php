@@ -74,6 +74,8 @@ get_header();
                                         if (!empty($acf->enlace_transmision)) {
                                             echo '<a href="' . esc_url($acf->enlace_transmision) . '" target="_blank" class="btn btn-outline"><i class="fa-solid fa-video"></i> Ver ahora</a>';
                                         }
+                                        
+                                        get_template_part('template-parts/social-share');
                                     echo '</div>';
                                 } else {
                                     echo '<p>No se encontraron datos personalizados para este evento.</p>';
