@@ -1,16 +1,18 @@
 #custom-notification {
+    display: none;
+
     &.show {
-        z-index: 9999;
+        display: flex;
         position: fixed;
         left: 0.5rem;
         bottom: 2.5rem;
         padding: .6rem 1.4rem;
-        display: flex;
         align-items: center;
         gap: .6rem;
         border-radius: var(--border-radius);
         color: var(--white);
         font-size: 14px;
+        z-index: 9999;
         opacity: .9;
     }
     
