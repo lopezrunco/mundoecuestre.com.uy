@@ -217,7 +217,9 @@ export const renderData = async (
     const postHTML = `
       <div class="item-wrapper">
         <div class="image-wrapper">
-          <img src="${imageUrl}" alt="Imagen de ${title}" class="d-block w-100"/>
+          <a href="${postUrl}">
+            <img src="${imageUrl}" alt="Imagen de ${title}" class="d-block w-100"/>
+          </a>
           ${copyUrlButton}
           <div class="metadata-wrapper">
             <span>${day}</span>
