@@ -8,7 +8,6 @@ export interface Post {
     categories: number[];
     acf: {
         inicio_de_la_transmision: string;
-        fin_de_la_transmision: string;
         enlace_transmision?: string;
         enlace_a_preoferta?: string;
         ubicacion?: string;
