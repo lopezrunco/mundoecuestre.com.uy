@@ -198,7 +198,18 @@ export const renderData = async (
       : ""
 
     const broadcastButton = broadcastLink
-      ? `<a href="${broadcastLink}" target="_blank" class="btn btn-${ broadCasting ? "primary" : "outline" }">${ broadCasting ? "En vivo ahora" : isShowCategory ? "Ver programa" : "Ver transmisión"}<i class="fa-solid fa-video"></i></a>` 
+      ? `<a href="${broadcastLink}" target="_blank" class="btn btn-${
+          broadCasting && !isShowCategory ? "primary" : "outline"
+        }">
+          ${
+            broadCasting && !isShowCategory
+              ? "En vivo ahora"
+              : isShowCategory
+              ? "Ver programa"
+              : "Ver transmisión"
+          }
+          <i class="fa-solid fa-video"></i>
+        </a>`
       : ""
 
     const preofferButton = preofferLink
@@ -257,7 +268,7 @@ export const renderData = async (
     item.innerHTML = postHTML
     inner.appendChild(item)
 
-    if (broadCasting && broadcastLink) broadcastingWrapper.insertAdjacentHTML("beforeend", getBroadcastModal(broadcastLink, title))
+    if (!isShowCategory && broadCasting && broadcastLink) broadcastingWrapper.insertAdjacentHTML("beforeend", getBroadcastModal(broadcastLink, title))
 
     // Carousel controls.
     const prevBtn = `
@@ -275,7 +286,9 @@ export const renderData = async (
     carousel.insertAdjacentHTML("beforeend", prevBtn + nextBtn)
 
     // Append both desktop and mobile versions.
-    rootElement.appendChild(broadcastingWrapper)
+    if (!isShowCategory && broadcastingWrapper.children.length > 0) {
+      rootElement.appendChild(broadcastingWrapper)
+    }
     rootElement.appendChild(postsWrapper)
     rootElement.appendChild(carousel)
 
